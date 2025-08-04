@@ -1,0 +1,142 @@
+---
+title: "cost-and-shipment-RCS"
+author: "MTO"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load required libraries
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(forcats)
+```
+
+## Costs across Global North and South
+
+
+```{r r-data-cleaning}
+
+#load data
+df <- read.csv("reagent-costs1_noNP.csv", na.strings = c("NA", "NP", ""))
+
+# convert data
+df_long <- df %>%
+  pivot_longer(cols = starts_with("S") | starts_with("N"),
+               names_to = "Participant", values_to = "Cost") %>%
+  mutate(
+    SN = ifelse(str_starts(Participant, "S"), "S", "N"),
+    Item = factor(Item) 
+  )
+
+
+df_long_clean <- df_long %>%
+  mutate(
+    Cost = str_replace_all(Cost, "[$,]", ""),  # remove $ and commas
+    Cost = as.numeric(Cost)                     # convert to numeric
+  ) %>%
+  filter(!is.na(Cost))                         # remove NAs after conversion
+
+```
+
+```{r cb, include = TRUE, fig.width=14, fig.height=8}
+df_long_clean$Item <- fct_inorder(df_long_clean$Item)
+
+# Create boxplot
+cost_box_plot <- ggplot(df_long_clean, aes(x = Item, y = Cost, fill = SN, group = interaction(Item, SN))) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(position = position_jitterdodge(jitter.width = 0.2), alpha = 0.4, size = 1) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05))) +
+  scale_fill_manual(values = c(
+    "N" = "#E09EE0",  
+    "S" = "#A6D1D1"
+  )) +
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = NA, color = NA),
+    plot.background = element_rect(fill = NA, color = NA),
+    legend.background = element_rect(fill = NA, color = NA),
+    panel.grid = element_blank(),
+    axis.line = element_line(color = "black", size = 0.8),
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 10, color = "black", family = "sans"),
+    axis.text.y = element_text(size = 10, color = "black", family = "sans"),
+    axis.title = element_text(face = "bold", size = 14, color = "black", family = "sans"),
+    legend.position = "top",
+    legend.text = element_text(size = 10, color = "black", family = "sans"),
+    legend.title = element_text(size = 14, face = "bold", color = "black", family = "sans")
+  ) +
+  labs(x = "Item", y = "Cost (USD)", fill = "Participant Type")
+
+#print and save image
+ggsave("cost_plot_highres.png", plot = cost_box_plot, width = 14, height = 8, dpi = 600)
+
+```
+
+
+
+
+## Shipment Times across Global North and South
+
+```{r sbox, include = TRUE, fig.width=14, fig.height=8}
+
+df_long <- df %>%
+  pivot_longer(
+    cols = starts_with(c("S", "N")),
+    names_to = "Sample",
+    values_to = "Value"
+  ) %>%
+  filter(!is.na(Value)) %>%
+  mutate(
+    SampleGroup = if_else(str_starts(Sample, "S"), "S", "N")
+  )
+
+# ShipmentTime numeric
+shipment_df <- df_long %>%
+  filter(Class == "ProjectShipmentTimeline") %>%
+  mutate(
+    ShipmentTime = as.numeric(Value)
+  ) %>%
+  filter(!is.na(ShipmentTime))
+
+shipment_df <- shipment_df %>%
+  mutate(Item = factor(Item, levels = unique(Item)),
+         SampleGroup = factor(SampleGroup, levels = c("S", "N")))
+
+#boxplot of shipment data
+ship_box_plot <- ggplot(shipment_df, aes(x = Item, y = ShipmentTime, fill = SampleGroup)) +
+  geom_boxplot(position = position_dodge(width = 0.8), outlier.shape = NA) +
+  geom_jitter(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.8), alpha = 0.4, size = 1) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05))) +
+    scale_fill_manual(values = c(
+    "N" = "#E09EE0", 
+    "S" = "#A6D1D1"
+  )) +
+  theme_bw() +
+  theme(
+    panel.background = element_rect(fill = NA, color = NA),
+    plot.background = element_rect(fill = NA, color = NA),
+    legend.background = element_rect(fill = NA, color = NA),
+    panel.grid = element_blank(),
+    axis.line = element_line(color = "black", size = 0.8),
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 10, color = "black", family = "sans"),
+    axis.text.y = element_text(size = 10, color = "black", family = "sans"),
+    axis.title = element_text(face = "bold", size = 14, color = "black", family = "sans"),
+    legend.position = "top",
+    legend.text = element_text(size = 10, color = "black", family = "sans"),
+    legend.title = element_text(size = 14, face = "bold", color = "black", family = "sans")
+  ) +
+  labs(x = "Item", y = "Shipment Time (days)", fill = "Participant Type")
+
+#print and save image
+ggsave("time_plot_highres.png", plot = ship_box_plot, width = 14, height = 8, dpi = 600)
+
+```
+
+
+
+
+
+

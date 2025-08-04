@@ -1,0 +1,48 @@
+---
+title: "Interview_responses"
+author: "MTO"
+date: "`r Sys.Date()`"
+output: html_document
+---
+## Set up document
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load required libraries
+library(tidyverse)
+library(readr)
+library(pheatmap)
+
+
+```
+
+## Read in data
+```{r, include=TRUE}
+#read in interview theme data
+theme_matrix <- read_csv("interview_matrix.csv")
+
+# Set row names
+theme_matrix <- as.data.frame(theme_matrix)
+rownames(theme_matrix) <- theme_matrix$Theme
+theme_matrix$Theme <- NULL
+
+# Convert to matrix
+theme_matrix <- as.matrix(theme_matrix)
+
+# Plot heatmap
+p <- pheatmap(theme_matrix,
+         cluster_rows = FALSE,
+         cluster_cols = FALSE,
+         color = c("#C7EBF9", "#464D77"),
+         legend_breaks = c(0, 1),
+         legend_labels = c("Absent", "Present"),
+         border_color = "grey90",
+         fontsize = 10,
+         cellwidth = 30,
+         cellheight = 25,
+         main = "Challenges by Interviewee (Presence/Absence)")
+
+#Save image
+ggsave(p, filename="interview-heatmap.png", height=10, width=7, units="in", dpi=200)
+
+```
