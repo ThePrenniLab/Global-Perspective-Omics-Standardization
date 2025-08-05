@@ -40,6 +40,16 @@ df_long_clean <- df_long %>%
   ) %>%
   filter(!is.na(Cost))                         # remove NAs after conversion
 
+# Wilcoxon rank-sum test for each Item (S vs N)
+cost_stats <- df_long_clean %>%
+  group_by(Item) %>%
+  summarise(p_value = wilcox.test(Cost ~ SN)$p.value) %>%
+  mutate(p_adj = p.adjust(p_value, method = "BH"))  # FDR correction
+
+print(cost_stats)
+
+write.csv(cost_stats, "cost_stats.csv")
+
 ```
 
 ```{r cb, include = TRUE, fig.width=14, fig.height=8}
@@ -71,7 +81,7 @@ cost_box_plot <- ggplot(df_long_clean, aes(x = Item, y = Cost, fill = SN, group 
   labs(x = "Item", y = "Cost (USD)", fill = "Participant Type")
 
 #print and save image
-ggsave("cost_plot_highres.png", plot = cost_box_plot, width = 14, height = 8, dpi = 600)
+ggsave("cost_plot_highres.png", plot = cost_box_plot, width = 14, height = 8, dpi = 1800)
 
 ```
 
@@ -105,6 +115,16 @@ shipment_df <- shipment_df %>%
   mutate(Item = factor(Item, levels = unique(Item)),
          SampleGroup = factor(SampleGroup, levels = c("S", "N")))
 
+# Wilcoxon rank-sum test for each Item (S vs N)
+shipment_stats <- shipment_df %>%
+  group_by(Item) %>%
+  summarise(p_value = wilcox.test(ShipmentTime ~ SampleGroup)$p.value) %>%
+  mutate(p_adj = p.adjust(p_value, method = "BH"))  # FDR correction
+
+print(shipment_stats)
+
+write.csv(shipment_stats, "shipment_stats.csv")
+
 #boxplot of shipment data
 ship_box_plot <- ggplot(shipment_df, aes(x = Item, y = ShipmentTime, fill = SampleGroup)) +
   geom_boxplot(position = position_dodge(width = 0.8), outlier.shape = NA) +
@@ -131,9 +151,10 @@ ship_box_plot <- ggplot(shipment_df, aes(x = Item, y = ShipmentTime, fill = Samp
   labs(x = "Item", y = "Shipment Time (days)", fill = "Participant Type")
 
 #print and save image
-ggsave("time_plot_highres.png", plot = ship_box_plot, width = 14, height = 8, dpi = 600)
+ggsave("time_plot_highres.png", plot = ship_box_plot, width = 14, height = 8, dpi = 1800)
 
 ```
+
 
 
 
