@@ -1,0 +1,35 @@
+Continent,Global group,Participant,Position,Education Level,Discipline of Focus (select the most relevant choice),Experience in field of study
+Europe,North,S3,Analytical Core Director,PhD,Analytical chemistry,10+ years
+Europe,North,S20,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Nutrition,10+ years
+Europe,North,S30,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Agriculture,10+ years
+North America,North,S6,Analytical Core Director,PhD,Analytical chemistry,10+ years
+North America,North,S17,Lab technician/research associate,Bachelors,Analytical chemistry,1-3 years
+North America,North,S12,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years
+North America,North,S13,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years
+North America,North,S33,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years
+North America,North,S34,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Ethnobotany,10+ years
+North America,North,S19,Staff/research scientist,PhD,Analytical chemistry,10+ years
+Oceania,North,S8,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years
+Oceania,North,S14,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Environmental Science,10+ years
+Africa,South,S32,Lab technician/research associate,Masters,Food Science and Technology ,3-5 years
+Africa,South,S2,PhD/Masters Student,Masters in Progress,Food Science and Technology ,3-5 years
+Africa,South,S4,PhD/Masters Student,Masters in Progress,Biochemistry,3-5 years
+Africa,South,S5,PhD/Masters Student,Bachelors,Agriculture,1-3 years
+Africa,South,S10,PhD/Masters Student,Masters in Progress,Food science and technology,5-10 yea
+Africa,South,S24,PhD/Masters Student,Masters,Nutrition,1-3 years
+Africa,South,S25,PhD/Masters Student,Masters in Progress,Nutrition,1-3 years
+Africa,South,S27,PhD/Masters Student,Masters in Progress,Nutrition,1-3 years
+Africa,South,S31,PhD/Masters Student,Masters in Progress,Environmental science ,5-10 yea
+Africa,South,S1,Staff/research scientist,Masters,Nutrition,5-10 yea
+Africa,South,S18,Staff/research scientist,Masters,Analytical chemistry,10+ years
+Africa,South,S26,Staff/research scientist,PhD in Progress,Nutrition,5-10 yea
+Africa,South,S28,Staff/research scientist,PhD,Nutrition,10+ years
+Asia,South,S23,Consultant Scientist ,PhD,Analytical chemistry,10+ years
+Asia,South,S7,Lab technician/research associate,PhD in Progress,Analytical chemistry,1-3 years
+Asia,South,S9,Postdoctoral researcher,PhD,Analytical chemistry,1-3 years
+Asia,South,S22,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Nutrition,10+ years
+Asia,South,S29,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Nutrition,10+ years
+Asia,South,S11,Staff/research scientist,Masters,Nutrition,1-3 years
+North America,South,S15,Staff/research scientist,PhD,Nutrition,10+ years
+North America,South,S16,Staff/research scientist,Masters,Nutrition,3-5 years
+South America,South,S21,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years
