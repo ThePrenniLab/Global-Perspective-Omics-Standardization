@@ -53,6 +53,9 @@ discipline_results <- do.call(rbind, lapply(disciplines, function(x) compare_cat
 experiences <- unique(df$Experience)
 experience_results <- do.call(rbind, lapply(experiences, function(x) compare_category(df, "Experience", x)))
 
+discipline_results$FDR <- p.adjust(discipline_results$p_value, method = "fdr")
+experience_results$FDR <- p.adjust(experience_results$p_value, method = "fdr")
+
 
 print("Discipline comparisons:")
 print(discipline_results)
