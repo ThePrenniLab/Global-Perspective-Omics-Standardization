@@ -1,0 +1,35 @@
+Continent,global_group,Participant,Position,Education Level,Discipline of Focus (select the most relevant choice),Experience in field of study,Analytical_Tools,Educational_Resource,Data_Resources,ABS,Standardized_Metadata_for_Food,Standardization_of_Intake_Processing_of_Food,Capacity_Strengthening,Joining_PTFI_global_ecosystem
+Europe,North,S3,Analytical Core Director,PhD,Analytical chemistry,10+ years,7,7,7,7,8 (highest),7,7,8 (highest)
+Europe,North,S20,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Nutrition,10+ years,4,7,5,1 (lowest),3,2,6,8 (highest)
+Europe,North,S30,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Agriculture,10+ years,7,4,7,4,4,4,4,4
+North America,North,S6,Analytical Core Director,PhD,Analytical chemistry,10+ years,5,5,6,5,5,5,4,5
+North America,North,S17,Lab technician/research associate,Bachelors,Analytical chemistry,1-3 years,6,7,8 (highest),6,7,3,8 (highest),8 (highest)
+North America,North,S12,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years,6,2,7,3,4,4,4,4
+North America,North,S13,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years,4,8 (highest),7,6,5,1 (lowest),3,2
+North America,North,S33,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years,8 (highest),8 (highest),8 (highest),6,8 (highest),8 (highest),8 (highest),8 (highest)
+North America,North,S34,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Ethnobotany,10+ years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+North America,North,S19,Staff/research scientist,PhD,Analytical chemistry,10+ years,4,7,2,5,3,1 (lowest),8 (highest),6
+Oceania,North,S8,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years,8 (highest),6,6,8 (highest),7,7,8 (highest),6
+Oceania,North,S14,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Environmental Science,10+ years,4,3,5,6,7,1 (lowest),2,8 (highest)
+Africa,South,S32,Lab technician/research associate,Masters,food science and nutrition,3-5 years,,7,7,6,7,7,7,7
+Africa,South,S2,PhD/Masters Student,Masters in Progress,Food Science and Technology ,3-5 years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+Africa,South,S4,PhD/Masters Student,Masters in Progress,Biochemistry,3-5 years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),7,8 (highest),8 (highest)
+Africa,South,S5,PhD/Masters Student,Bachelors,Agriculture,1-3 years,8 (highest),7,8 (highest),6,8 (highest),7,7,5
+Africa,South,S10,PhD/Masters Student,Masters in Progress,Food science and technology,5-10 yea,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+Africa,South,S24,PhD/Masters Student,Masters,Nutrition,1-3 years,7,7,7,7,7,7,7,7
+Africa,South,S25,PhD/Masters Student,Masters in Progress,Nutrition,1-3 years,8 (highest),7,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),7
+Africa,South,S27,PhD/Masters Student,Masters in Progress,Nutrition,1-3 years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+Africa,South,S31,PhD/Masters Student,Masters in Progress,Environmental science ,5-10 yea,8 (highest),7,7,5,7,8 (highest),7,6
+Africa,South,S1,Staff/research scientist,Masters,Nutrition,5-10 yea,7,8 (highest),7,5,7,6,8 (highest),6
+Africa,South,S18,Staff/research scientist,Masters,Analytical chemistry,10+ years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+Africa,South,S26,Staff/research scientist,PhD in Progress,Nutrition,5-10 yea,8 (highest),7,7,6,7,7,8 (highest),8 (highest)
+Africa,South,S28,Staff/research scientist,PhD,Nutrition,10+ years,8 (highest),8 (highest),8 (highest),6,8 (highest),6,8 (highest),7
+Asia,South,S23,Consultant Scientist ,PhD,Analytical chemistry,10+ years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+Asia,South,S7,Lab technician/research associate,PhD in Progress,Analytical chemistry,1-3 years,7,7,6,6,6,7,6,6
+Asia,South,S9,Postdoctoral researcher,PhD,Analytical chemistry,1-3 years,6,6,7,7,7,6,7,8 (highest)
+Asia,South,S22,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Nutrition,10+ years,8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest),8 (highest)
+Asia,South,S29,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Nutrition,10+ years,8 (highest),8 (highest),8 (highest),5,7,7,8 (highest),8 (highest)
+Asia,South,S11,Staff/research scientist,Masters,Nutrition,1-3 years,8 (highest),6,5,4,3,2,7,1 (lowest)
+North America,South,S15,Staff/research scientist,PhD,Nutrition,10+ years,8 (highest),6,6,4,5,2,7,7
+North America,South,S16,Staff/research scientist,Masters,Nutrition,3-5 years,8 (highest),8 (highest),8 (highest),8 (highest),7,8 (highest),8 (highest),8 (highest)
+South America,South,S21,Principal Investigator (PI)/ Senior Staff Scientist,PhD,Analytical chemistry,10+ years,4,3,2,6,5,1 (lowest),7,8 (highest)
