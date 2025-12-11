@@ -1,0 +1,152 @@
+---
+title: "Survey_answer_analysis"
+author: "MTO"
+date: "`r Sys.Date()`"
+output: html_document
+---
+## Set up document
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load in required libraries
+library(tidyverse)
+library(ggplot2)
+library(readr)
+library(ggpubr)
+library(rlang) 
+library(ggalluvial)
+library(DescTools)
+
+```
+
+## Read in data
+```{r, include=TRUE}
+#Read in data frame
+df <- read.csv("incentives_to-join.csv")
+df_original <- df
+
+df_filtered <- df_original %>%
+  rowwise() %>%
+  filter(
+    # Extract columns 8:15 for the row
+    {
+      vals <- c_across(8:15)
+
+      # Coerce to numeric safely
+      vals_num <- suppressWarnings(as.numeric(vals))
+
+      # Count unique non-NA numeric values
+      length(unique(vals_num[!is.na(vals_num)])) >= 3
+    }
+  ) %>%
+  ungroup()
+
+columns_to_bin <- 8:15
+
+# Row-wise binning for selected columns by index
+bin_individual_safe <- function(x) {
+  ranks <- rank(x, ties.method = "average")
+  n <- length(ranks)
+  labels <- c("Low", "Medium", "High")
+  
+  # Split into thirds by position
+  bins <- cut(ranks,
+              breaks = c(0, floor(n / 3), floor(2 * n / 3), n),
+              labels = labels,
+              include.lowest = TRUE,
+              right = TRUE)
+  return(bins)
+}
+
+# Apply row-wise
+binned_selected <- t(apply(df_filtered[, columns_to_bin], 1, bin_individual_safe))
+
+# Add scaling to data frame
+df_binned <- df_filtered
+df_binned[, columns_to_bin] <- lapply(as.data.frame(binned_selected), factor, levels = c("Low", "Medium", "High"))
+
+# Define theme sets
+section1_themes <- c( "Educational_Resource",  "ABS")
+section2_themes <- c("Standardized_Metadata", "Standardized_Intake", "Analytical_Tools")
+section3_themes <- c("Data_Resources","Capacity_Strengthening", "Joining_PTFI")
+
+# Convert global_group to factor
+df_long <- df_binned %>%
+  pivot_longer(
+    cols = all_of(columns_to_bin),
+    names_to = "Theme",
+    values_to = "BinnedScore"
+  )
+
+write.csv(df_binned, "binned_data.csv")
+
+# Loop over each category to perform chi-square
+results <- df_long %>%
+  group_by(Theme) %>%
+  summarise(
+    trend_pval = tryCatch(
+      CochranArmitageTest(table(global_group, BinnedScore))$p.value,
+      error = function(e) NA
+    ),
+    .groups = "drop"   # optional: ungroup after summarise
+  ) %>%
+  mutate(
+    trend_pval_BH = p.adjust(trend_pval, method = "BH")
+  )
+
+write.csv(results, "motivations_significance.csv")
+
+#plot motivations
+plot_section <- function(df_long, themes_subset, title_text) {
+  df_long$Theme <- factor(df_long$Theme, levels = themes_subset)
+
+  df_summary <- df_long %>%
+    filter(Theme %in% themes_subset) %>%
+    group_by(global_group, Theme, BinnedScore) %>%
+    summarise(n = n(), .groups = "drop") %>%
+    group_by(global_group, Theme) %>%
+    mutate(prop = n / sum(n)) %>%
+    ungroup() %>%
+    complete(global_group, Theme = themes_subset, BinnedScore = c("Low", "Medium", "High"), fill = list(n = 0, prop = 0))
+
+  ggplot(df_summary, aes(x = Theme, y = prop, fill = BinnedScore)) +
+    geom_bar(stat = "identity", color = "black") +  # << Stacked by default!
+    facet_wrap(~global_group) +                     # One panel per group
+    scale_fill_manual(values = c("Low" = "#d73027", "Medium" = "#fee090", "High" = "#1a9850")) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    labs(
+      title = title_text,
+      x = "Theme",
+      y = "Proportion of Respondents",
+      fill = "Response Tier"
+    )
+}
+
+section1_themes <- c("Educational_Resource",  "ABS")
+section2_themes <- c("Standardized_Metadata_for_Food", "Standardization_of_Intake_Processing_of_Food", "Analytical_Tools")
+section3_themes <- c("Data_Resources", "Capacity_Strengthening", "Joining_PTFI_global_ecosystem")
+
+plot1 <- plot_section(df_long, section1_themes, "Section 1: Prerequisite Resources")
+plot2 <- plot_section(df_long, section2_themes, "Section 2: Standardized Workflows")
+plot3 <- plot_section(df_long, section3_themes, "Section 3: Outcomes")
+
+
+#Print and save plots
+print(plot1)
+print(plot2)
+print(plot3)
+
+ggsave("plot_section1.png", plot1, width = 8, height = 5)
+ggsave("plot_section2.png", plot2, width = 8, height = 5)
+ggsave("plot_section3.png", plot3, width = 8, height = 5)
+
+
+```
+
+
+
+
+
+
+
